@@ -1,0 +1,224 @@
+ select * from salesman;
+
++------------+-------------+----------+-----------+
+| saleman_id | name        | city     | commision |
++------------+-------------+----------+-----------+
+|       5001 | James Hooq  | New York |         0 |
+|       5002 | Nail Knight | Paris    |         0 |
+|       5003 | Lauson Hen  |          |         0 |
+|       5005 | Pit Alex    | London   |         0 |
+|       5006 | Mc Lyon     | Paris    |         0 |
+|       5007 | Paul Adam   | Rome     |         0 |
++------------+-------------+----------+-----------+
+
+ Alter table salesman  Modify column commision float;
+Query OK, 6 rows affected (0.27 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman;
++------------+-------------+----------+-----------+
+| saleman_id | name        | city     | commision |
++------------+-------------+----------+-----------+
+|       5001 | James Hooq  | New York |         0 |
+|       5002 | Nail Knight | Paris    |         0 |
+|       5003 | Lauson Hen  |          |         0 |
+|       5005 | Pit Alex    | London   |         0 |
+|       5006 | Mc Lyon     | Paris    |         0 |
+|       5007 | Paul Adam   | Rome     |         0 |
++------------+-------------+----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> Update  salesman Set commision = 0.15 where saleman_id = 5001;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update  salesman Set commision = 0.13 where saleman_id = 5002;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update  salesman Set commision = 0.11 where saleman_id = 5005;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update  salesman Set commision = 0.14 where saleman_id = 5006;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update  salesman Set commision = 0.12 where saleman_id = 5003;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update  salesman Set commision = 0.13 where saleman_id = 5007;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from salesman;
++------------+-------------+----------+-----------+
+| saleman_id | name        | city     | commision |
++------------+-------------+----------+-----------+
+|       5001 | James Hooq  | New York |      0.15 |
+|       5002 | Nail Knight | Paris    |      0.13 |
+|       5003 | Lauson Hen  |          |      0.12 |
+|       5005 | Pit Alex    | London   |      0.11 |
+|       5006 | Mc Lyon     | Paris    |      0.14 |
+|       5007 | Paul Adam   | Rome     |      0.13 |
++------------+-------------+----------+-----------+
+6 rows in set (0.00 sec)
+
+#2 Table
+mysql> create table customer(customer_id int primary key , customer_name varchar(20) , city varchar(20) , grade int ,saleman_id int ,foreign key(saleman_id) references salesman(saleman_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc customer;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| customer_id   | int(11)     | NO   | PRI | NULL    |       |
+| customer_name | varchar(20) | YES  |     | NULL    |       |
+| city          | varchar(20) | YES  |     | NULL    |       |
+| grade         | int(11)     | YES  |     | NULL    |       |
+| saleman_id    | int(11)     | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> insert into customer values(3002 , 'nick', 'new york' , 100 , 5001);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer values(3005 , 'graham', 'california' ,200 , 5002);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer(customer_id,customer_name,city) values(3001,'brad','london');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++-------------+---------------+------------+-------+------------+
+| customer_id | customer_name | city       | grade | saleman_id |
++-------------+---------------+------------+-------+------------+
+|        3001 | brad          | london     |  NULL |       NULL |
+|        3002 | nick          | new york   |   100 |       5001 |
+|        3005 | graham        | california |   200 |       5002 |
++-------------+---------------+------------+-------+------------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into customer values(3004 , 'fabian', 'paris' , 300 , 5006);;
+Query OK, 1 row affected (0.05 sec)
+
+
+mysql> select * from customer;
++-------------+---------------+------------+-------+------------+
+| customer_id | customer_name | city       | grade | saleman_id |
++-------------+---------------+------------+-------+------------+
+|        3001 | brad          | london     |  NULL |       NULL |
+|        3002 | nick          | new york   |   100 |       5001 |
+|        3004 | fabian        | paris      |   300 |       5006 |
+|        3005 | graham        | california |   200 |       5002 |
++-------------+---------------+------------+-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into customer values(3007 , 'brad', 'new york' ,200 , 5001);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into customer values(3009 , 'geoff', 'berlin' ,100 ,null);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer values(3008 , 'julian', 'london' ,300 ,5002);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into customer values(3003 , 'jozy', 'moncow' ,200 ,5007);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++-------------+---------------+------------+-------+------------+
+| customer_id | customer_name | city       | grade | saleman_id |
++-------------+---------------+------------+-------+------------+
+|        3001 | brad          | london     |  NULL |       NULL |
+|        3002 | nick          | new york   |   100 |       5001 |
+|        3003 | jozy          | moncow     |   200 |       5007 |
+|        3004 | fabian        | paris      |   300 |       5006 |
+|        3005 | graham        | california |   200 |       5002 |
+|        3007 | brad          | new york   |   200 |       5001 |
+|        3008 | julian        | london     |   300 |       5002 |
+|        3009 | geoff         | berlin     |   100 |       NULL |
++-------------+---------------+------------+-------+------------+
+8 rows in set (0.00 sec)
+
+
+#3rd table
+
+
+mysql> create table ord(order_no int primary key , purch_amt float , order_date date , customer_id int, foreign key(customer_id) references customer(customer_id),saleman_id int, foreign key(saleman_id) references salesman(saleman_id));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> select * from ord;
+Empty set (0.00 sec)
+
+mysql> insert into ord values(70001,150.5,"2016-10-05",3005,5002);
+Query OK, 1 row affected (0.05 sec)
+
+
+
+mysql> insert into ord values(70009,270.65,"2016-09-10",3001,Null);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70002,65.26,"2016-10-05",3002,5001);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70004,110.5,"2016-08-17",3009,null);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70007,948.5,"2016-09-10",3005,5002);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70005,2400.6,"2016-07-27",3007,5001);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70008,5760,"2016-09-10",3002,5001);)
+Query OK, 1 row affected (0.02 sec)
+
+insert into ord values(70005,2400.6,"2016-07-27",3007,5001)' at line 1
+mysql> insert into ord values(70010,1983.43,"2016-10-10",3004,5006);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70003,2480.4,"2016-10-10",3009,null);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70012,250.45,"2016-06-27",3008,5002);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into ord values(70011,75.29,"2016-08-17",3003,5007);;
+Query OK, 1 row affected (0.03 sec)
+
+ERROR:
+No query specified
+
+mysql> select * from ord;
++----------+-----------+------------+-------------+------------+
+| order_no | purch_amt | order_date | customer_id | saleman_id |
++----------+-----------+------------+-------------+------------+
+|    70001 |     150.5 | 2016-10-05 |        3005 |       5002 |
+|    70002 |     65.26 | 2016-10-05 |        3002 |       5001 |
+|    70003 |    2480.4 | 2016-10-10 |        3009 |       NULL |
+|    70004 |     110.5 | 2016-08-17 |        3009 |       NULL |
+|    70005 |    2400.6 | 2016-07-27 |        3007 |       5001 |
+|    70007 |     948.5 | 2016-09-10 |        3005 |       5002 |
+|    70008 |      5760 | 2016-09-10 |        3002 |       5001 |
+|    70009 |    270.65 | 2016-09-10 |        3001 |       NULL |
+|    70010 |   1983.43 | 2016-10-10 |        3004 |       5006 |
+|    70011 |     75.29 | 2016-08-17 |        3003 |       5007 |
+|    70012 |    250.45 | 2016-06-27 |        3008 |       5002 |
++----------+-----------+------------+-------------+------------+
+11 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
