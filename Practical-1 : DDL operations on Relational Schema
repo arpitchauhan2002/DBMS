@@ -388,13 +388,48 @@ mysql> select count(*) from orders where ord_date='2012-08-17';
 1 row in set (0.00 sec)
 
 
+#own three queries
 
+Query 1: Retrieve the total commission earned by each salesman and their average commission:
 
+mysql> SELECT salesman_id, name, city,
+    ->        (SELECT SUM(comission) FROM salesman s WHERE s.salesman_id = sa.salesman_id) AS total_commission,
+    ->        (SELECT AVG(comission) FROM salesman s WHERE s.salesman_id = sa.salesman_id) AS avg_commission
+    -> FROM salesman sa;
++-------------+------------+----------+---------------------+---------------------+
+| salesman_id | name       | city     | total_commission    | avg_commission      |
++-------------+------------+----------+---------------------+---------------------+
+|        5001 | James Hoog | New York | 0.15000000596046448 | 0.15000000596046448 |
+|        5002 | Nail Knite | Paris    | 0.12999999523162842 | 0.12999999523162842 |
+|        5003 | Lauson Hen |          | 0.11999999731779099 | 0.11999999731779099 |
+|        5005 | Pit Alex   | London   | 0.10999999940395355 | 0.10999999940395355 |
+|        5006 | Mc Lyon    | Paris    | 0.14000000059604645 | 0.14000000059604645 |
+|        5007 | Paul Adam  | Rome     | 0.12999999523162842 | 0.12999999523162842 |
++-------------+------------+----------+---------------------+---------------------+
+6 rows in set (0.00 sec)
 
+Query 2: Retrieve the top 3 salesmen based on total commission earned:
 
+mysql> SELECT salesman_id, name, city, comission
+    -> FROM salesman
+    -> ORDER BY comission DESC
+    -> LIMIT 3;
++-------------+------------+----------+-----------+
+| salesman_id | name       | city     | comission |
++-------------+------------+----------+-----------+
+|        5001 | James Hoog | New York |      0.15 |
+|        5006 | Mc Lyon    | Paris    |      0.14 |
+|        5002 | Nail Knite | Paris    |      0.13 |
++-------------+------------+----------+-----------+
+3 rows in set (0.00 sec)
 
+Query 3: Find customers who made a purchase in the last month, along with order details:
 
-
+mysql> SELECT customer_name, city, grade, ord_no, purch_amt, ord_date
+    -> FROM customer, orders
+    -> WHERE customer.customer_id = orders.customer_id
+    ->       AND ord_date >= CURRENT_DATE - INTERVAL '1' MONTH;
+Empty set (0.01 sec)
 
 
 
