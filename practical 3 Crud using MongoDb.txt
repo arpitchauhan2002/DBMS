@@ -1,0 +1,208 @@
+Microsoft Windows [Version 10.0.22621.3155]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Abhay>mongosh
+Current Mongosh Log ID: 65db61f817cdb660a59fbddc
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.4
+Using MongoDB:          6.0.13
+Using Mongosh:          2.1.4
+mongosh 2.1.5 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-02-25T20:44:45.707+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use arpit
+switched to db arpit
+arpit> db.arp.insertOne({name:"motu",age:21,hobbies:['pubg','football']})
+{
+  acknowledged: true,
+  insertedId: ObjectId('65db622b17cdb660a59fbddd')
+}
+arpit> db.arp.insertMany({name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping]})
+Uncaught:
+SyntaxError: Unterminated string constant. (1:101)
+
+> 1 | db.arp.insertMany({name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping]})
+    |                                                                                                      ^
+  2 |
+
+arpit> db.arp.insertMany({name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping']})
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+arpit> db.arp.insertMany([name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping']])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:23)
+
+> 1 | db.arp.insertMany([name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping']])
+    |                        ^
+  2 |
+
+arpit> db.arp.insertMany([{name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping']])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:113)
+
+> 1 | db.arp.insertMany([{name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping']])
+    |                                                                                                                  ^
+  2 |
+
+arpit> db.arp.insertMany([{name:"darad",age:22},{name:"lalla",age:44},{name:"chini",age:22,hobbies:['eating','sleeping']}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65db62d617cdb660a59fbdde'),
+    '1': ObjectId('65db62d617cdb660a59fbddf'),
+    '2': ObjectId('65db62d617cdb660a59fbde0')
+  }
+}
+arpit> db.arp.find()
+[
+  {
+    _id: ObjectId('65db5c2607330ee22f38d2fd'),
+    name: 'arpit',
+    age: 21,
+    Idcards: { hasPancard: false, hasAdharCard: true },
+    hobbies: [ 'anime', 'cricket' ]
+  },
+  {
+    _id: ObjectId('65db5c3807330ee22f38d2fe'),
+    name: 'saurabh',
+    age: 22,
+    hobbies: [ 'anime', 'cricket' ]
+  },
+  {
+    _id: ObjectId('65db61e5af9367a0140fd8f7'),
+    name: 'kalesh',
+    age: 21
+  },
+  {
+    _id: ObjectId('65db622b17cdb660a59fbddd'),
+    name: 'motu',
+    age: 21,
+    hobbies: [ 'pubg', 'football' ]
+  },
+  { _id: ObjectId('65db62d617cdb660a59fbdde'), name: 'darad', age: 22 },
+  { _id: ObjectId('65db62d617cdb660a59fbddf'), name: 'lalla', age: 44 },
+  {
+    _id: ObjectId('65db62d617cdb660a59fbde0'),
+    name: 'chini',
+    age: 22,
+    hobbies: [ 'eating', 'sleeping' ]
+  }
+]
+arpit> db.arp.find({name:'arpit'})
+[
+  {
+    _id: ObjectId('65db5c2607330ee22f38d2fd'),
+    name: 'arpit',
+    age: 21,
+    Idcards: { hasPancard: false, hasAdharCard: true },
+    hobbies: [ 'anime', 'cricket' ]
+  }
+]
+arpit> db.arp.findOne({name:'arpit'})
+{
+  _id: ObjectId('65db5c2607330ee22f38d2fd'),
+  name: 'arpit',
+  age: 21,
+  Idcards: { hasPancard: false, hasAdharCard: true },
+  hobbies: [ 'anime', 'cricket' ]
+}
+arpit> db.arp.Update({name:'arpit'},{$set:{age:22}})
+TypeError: db.arp.Update is not a function
+arpit> db.arp.UpdateOne({name:'arpit'},{$set:{age:22}})
+TypeError: db.arp.UpdateOne is not a function
+arpit> db.arp.updateOne({name:'arpit'},{$set:{age:22}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+arpit> db.arp.updateMany({},{tenthpass:'yes'})
+MongoInvalidArgumentError: Update document requires atomic operators
+arpit> db.arp.updateMany({},{$set:,{tenthpass:'yes'}})
+Uncaught:
+SyntaxError: Unexpected token (1:27)
+
+> 1 | db.arp.updateMany({},{$set:,{tenthpass:'yes'}})
+    |                            ^
+  2 |
+
+arpit> db.arp.updateMany({},{$set:{tenthpass:'yes'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 7,
+  upsertedCount: 0
+}
+arpit> db.arp.find()
+[
+  {
+    _id: ObjectId('65db5c2607330ee22f38d2fd'),
+    name: 'arpit',
+    age: 22,
+    Idcards: { hasPancard: false, hasAdharCard: true },
+    hobbies: [ 'anime', 'cricket' ],
+    tenthpass: 'yes'
+  },
+  {
+    _id: ObjectId('65db5c3807330ee22f38d2fe'),
+    name: 'saurabh',
+    age: 22,
+    hobbies: [ 'anime', 'cricket' ],
+    tenthpass: 'yes'
+  },
+  {
+    _id: ObjectId('65db61e5af9367a0140fd8f7'),
+    name: 'kalesh',
+    age: 21,
+    tenthpass: 'yes'
+  },
+  {
+    _id: ObjectId('65db622b17cdb660a59fbddd'),
+    name: 'motu',
+    age: 21,
+    hobbies: [ 'pubg', 'football' ],
+    tenthpass: 'yes'
+  },
+  {
+    _id: ObjectId('65db62d617cdb660a59fbdde'),
+    name: 'darad',
+    age: 22,
+    tenthpass: 'yes'
+  },
+  {
+    _id: ObjectId('65db62d617cdb660a59fbddf'),
+    name: 'lalla',
+    age: 44,
+    tenthpass: 'yes'
+  },
+  {
+    _id: ObjectId('65db62d617cdb660a59fbde0'),
+    name: 'chini',
+    age: 22,
+    hobbies: [ 'eating', 'sleeping' ],
+    tenthpass: 'yes'
+  }
+]
+arpit> db.arp.updateMany({age:{$gt:20}},{$set:{status:'active'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 7,
+  upsertedCount: 0
+}
+arpit> db.arp.deleteOne({name:'motu'})
+{ acknowledged: true, deletedCount: 1 }
+arpit> db.arp.deleteMany({age:{$lt:17}}
+...
+...
+arpit> db.arp.deleteMany({age:{$lt:17}})
+{ acknowledged: true, deletedCount: 0 }
+arpit>
