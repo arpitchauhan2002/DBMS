@@ -1,0 +1,534 @@
+Microsoft Windows [Version 10.0.22621.3155]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Abhay>mongoimport "D:\students.json" -d clg -c stu --jsonArray --drop
+2024-02-26T01:18:36.016+0530    connected to: mongodb://localhost/
+2024-02-26T01:18:36.016+0530    dropping: clg.stu
+2024-02-26T01:18:36.025+0530    8 document(s) imported successfully. 0 document(s) failed to import.
+
+C:\Users\Abhay>mongosh
+Current Mongosh Log ID: 65db99b38eccdcd9e4332561
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.4
+Using MongoDB:          6.0.13
+Using Mongosh:          2.1.4
+mongosh 2.1.5 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-02-25T20:44:45.707+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted------
+
+test> show  dbs
+admin    40.00 KiB
+arpit    72.00 KiB
+clg      40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+school   40.00 KiB
+test> db.clg.find()
+
+test> use clg
+switched to db clg
+clg> show collections
+stu
+clg> db.stu.find()
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6c'),
+    name: 'Geeta',
+    age: 12,
+    Hobbies: [ 'Gaming', 'Cooking' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I code and play games.',
+    experience: [
+      { company: 'Spotify', duration: 1 },
+      { company: 'Google', duration: 3.4 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6d'),
+    name: 'Rita',
+    age: 11,
+    Hobbies: [ 'Anime' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I play games'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6f'),
+    name: 'Shyam',
+    age: 11,
+    Hobbies: [ 'Walking', 'Reading' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber and actor'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a70'),
+    name: 'Ram',
+    age: 10,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I do nothing.',
+    experience: [
+      { company: 'KPMG', duration: 1 },
+      { company: 'EY', duration: 1.5 },
+      { company: 'TCS', duration: 0.5 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a71'),
+    name: 'Ghanshayam',
+    age: 11,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a cook',
+    experience: [
+      { company: 'Times Internet', duration: 1 },
+      { company: '1 mg', duration: 1 },
+      { company: 'Apple', duration: 2 }
+    ]
+  },
+clg> db.stu.find({age:{$eq:12}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6c'),
+    name: 'Geeta',
+    age: 12,
+    Hobbies: [ 'Gaming', 'Cooking' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I code and play games.',
+    experience: [
+      { company: 'Spotify', duration: 1 },
+      { company: 'Google', duration: 3.4 }
+    ]
+  }
+]
+clg> db.stu.find({age:{$ne:12}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6d'),
+    name: 'Rita',
+    age: 11,
+    Hobbies: [ 'Anime' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I play games'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6f'),
+    name: 'Shyam',
+    age: 11,
+    Hobbies: [ 'Walking', 'Reading' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber and actor'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a70'),
+    name: 'Ram',
+    age: 10,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I do nothing.',
+    experience: [
+      { company: 'KPMG', duration: 1 },
+      { company: 'EY', duration: 1.5 },
+      { company: 'TCS', duration: 0.5 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a71'),
+    name: 'Ghanshayam',
+    age: 11,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a cook',
+    experience: [
+      { company: 'Times Internet', duration: 1 },
+      { company: '1 mg', duration: 1 },
+      { company: 'Apple', duration: 2 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a73'),
+    name: 'Geeta',
+    bio: 'I just code.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Flipkart', duration: 1 }
+    ],
+    Hobbies: [ 'Reading', 'Walking' ]
+  }
+]
+clg> db.stu.find({age:{$gt:12}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg> db.stu.find({age:{$gte:12}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6c'),
+    name: 'Geeta',
+    age: 12,
+    Hobbies: [ 'Gaming', 'Cooking' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I code and play games.',
+    experience: [
+      { company: 'Spotify', duration: 1 },
+      { company: 'Google', duration: 3.4 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg> db.stu.find({age:{$lt:20,$gt:15}})
+
+clg> db.stu.find({age:{$lt:25,$gt:15}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+clg> db.stu.find({age:{$eq:22},'experience.duration':{$gt:1}},{bio:5})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    bio: 'I am savage boi.'
+  }
+]
+clg> db.stu.find({age:{$in:[12,22]}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6c'),
+    name: 'Geeta',
+    age: 12,
+    Hobbies: [ 'Gaming', 'Cooking' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I code and play games.',
+    experience: [
+      { company: 'Spotify', duration: 1 },
+      { company: 'Google', duration: 3.4 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg> db.stu.find({age:{$nin:[12,22]}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6d'),
+    name: 'Rita',
+    age: 11,
+    Hobbies: [ 'Anime' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I play games'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6f'),
+    name: 'Shyam',
+    age: 11,
+    Hobbies: [ 'Walking', 'Reading' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber and actor'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a70'),
+    name: 'Ram',
+    age: 10,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I do nothing.',
+    experience: [
+clg> db.stu.find({'Hobbies':'Walking'})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6f'),
+    name: 'Shyam',
+    age: 11,
+    Hobbies: [ 'Walking', 'Reading' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber and actor'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a73'),
+    name: 'Geeta',
+    bio: 'I just code.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Flipkart', duration: 1 }
+    ],
+    Hobbies: [ 'Reading', 'Walking' ]
+  }
+]
+clg> db.stu.find({$or:[{age:{$lt:10}},{age:{$gt:12}}]})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg> db.stu.find({$or:[{age:{$eq:10}},{age:{$eq:12}}]})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6c'),
+    name: 'Geeta',
+    age: 12,
+    Hobbies: [ 'Gaming', 'Cooking' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I code and play games.',
+    experience: [
+      { company: 'Spotify', duration: 1 },
+      { company: 'Google', duration: 3.4 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a70'),
+    name: 'Ram',
+clg> db.stu.find({$and:[{age:{$eq:10}},{'experience.duration':{$eq:1}}]})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a70'),
+    name: 'Ram',
+    age: 10,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I do nothing.',
+    experience: [
+      { company: 'KPMG', duration: 1 },
+      { company: 'EY', duration: 1.5 },
+      { company: 'TCS', duration: 0.5 }
+    ]
+  }
+]
+clg> db.stu.find({$nor:[{age:{$eq:10}},{age:{$eq:12}}]})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6d'),
+    name: 'Rita',
+    age: 11,
+    Hobbies: [ 'Anime' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I play games'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6e'),
+    name: 'Sita',
+    age: 25,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber',
+    experience: [
+      { company: 'Spotify', duration: 3 },
+      { company: 'Paytm', duration: 1 }
+    ]
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a6f'),
+    name: 'Shyam',
+    age: 11,
+    Hobbies: [ 'Walking', 'Reading' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a youtuber and actor'
+  },
+  {
+    _id: ObjectId('65db99948983a2ee023a3a71'),
+    name: 'Ghanshayam',
+    age: 11,
+    Hobbies: [ 'Walk', 'Cricket' ],
+    identity: { hasPanCard: false, hasAdhaarCard: true },
+    bio: 'I am a cook',
+    experience: [
+      { company: 'Times Internet', duration: 1 },
+      { company: '1 mg', duration: 1 },
+      { company: 'Apple', duration: 2 }
+    ]
+  },
+clg> db.stu.find({$and:[{age:{$lt:23}},{hobbies:'TV Shows'}]})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+clg> db.stu.find({$and:[{age:{$not:{$lt:20}}},{age:{$not:{$gt:24}}}]})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+clg> db.stu.find({hasMacBook:{$exists:true}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg> db.stu.find({hasMacBook:{$exists:true,$type:8}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg> db.stu.find({hasMacBook:{$type:8}})
+[
+  {
+    _id: ObjectId('65db99948983a2ee023a3a72'),
+    name: 'Akshit',
+    age: 22,
+    hobbies: [ 'TV Shows' ],
+    hasMacBook: true,
+    bio: 'I am savage boi.',
+    experience: [
+      { company: 'Amazon', duration: 2 },
+      { company: 'Google', duration: 3 }
+    ]
+  }
+]
+clg>
